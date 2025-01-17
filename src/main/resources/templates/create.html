@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head th:replace="~{fragments :: head}"></head>
+
+<body>
+<div class="body">
+    <h1>Create Movie</h1>
+
+    <div th:switch="${creationStatus}">
+        <div th:case="'Success'" class="alert alert-success">
+            <strong>Success!</strong> Movie created successfully.
+        </div>
+        <div th:case="'Failed'" class="alert alert-danger">
+            <strong>Failure!</strong> Movie creation failed. Please try again.
+        </div>
+    </div>
+
+    <form th:action="@{/movies/create}" method="post" th:object="${movie}" class="px-4">
+        <div class="mb-3 row">
+            <label for="name" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-6">
+                <input type="text" id="name" autofocus="autofocus" class="form-control"
+                       required name="name" th:field="*{name}">
+                <p class="error" th:errors="*{name}"></p>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label for="genre" class="col-sm-2 col-form-label">Genre</label>
+            <div class="col-sm-6">
+                <select id="genre" class="form-control" required name="genre" th:field="*{genre}">
+                    <option th:each="genre : ${genres}" th:value="${genre}" th:text="${genre}"></option>
+                </select>
+                <p class="error" th:errors="*{genre}"></p>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label for="year" class="col-sm-2 col-form-label">Year</label>
+            <div class="col-sm-6">
+                <input type="number" id="year" class="form-control" required name="year" th:field="*{year}">
+                <p class="error" th:errors="*{year}"></p>
+            </div>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-success">Create Movie</button>
+            <span>Want to see all movies? <a href="/" th:href="@{/movies}">
+                Click here.
+            </a></span>
+        </div>
+    </form>
+
+</div>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

@@ -17,10 +17,15 @@ public interface UserService {
     UserDto getUserById(Integer id);
 
     List<UserDto> getAllUsers();
+    List<User> findAll();
 
     UserDto createUser(User user);
 
-    UserDto updateUser(User user);
+    User updateUser(User user);
+
+
 
     void deleteUser(User user);
+
+    void deleteUserById(Integer id);
 }

@@ -4,17 +4,13 @@ import com.example.demo.dto.UserDto;
 import com.example.demo.mapper.RoleMapper;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.model.RegistrationRequest;
-import com.example.demo.model.Role;
 import com.example.demo.model.User;
 import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -65,16 +61,26 @@ public class UserServiceImpl implements UserService{
         return userMapper.userListEntityToDto(userRepository.findAll());
     }
 
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
     public UserDto createUser(User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userMapper.userEntityToDto(userRepository.save(user));
     }
 
-    public UserDto updateUser(User user){
-        return userMapper.userEntityToDto(userRepository.save(user));
+    public User updateUser(User user){
+        return userRepository.save(user);
     }
 
     public void deleteUser(User user){
-        userRepository.delete(user);
+        userRepository.deleteById(user.getId());
+    }
+
+    @Override
+    public void deleteUserById(Integer id) {
+        userRepository.deleteById(id);
     }
 }
