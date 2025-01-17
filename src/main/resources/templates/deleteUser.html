@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head th:replace="~{fragments :: head}"></head>
+
+<body>
+<div class="body">
+    <h1>Delete User</h1>
+
+    <div th:each="user : ${users}">
+        <div class="form-group">
+            <label>
+                <span th:text="${user.firstName} + ' ' + ${user.lastName}"></span>
+                <form th:action="@{/users/delete/{id}(id=${user.id})}" method="post">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </label>
+        </div>
+    </div>
+
+    <div>
+        <span>Want to see all users? <a href="/users" th:href="@{/users}">Click here.</a></span>
+    </div>
+</div>
+
+<div th:replace="~{fragments :: footer}"></div>
+
+</body>
+</html>

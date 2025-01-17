@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <title th:text="${title}">Title</title>
+</head>
+
+<h1>Edit Movie</h1>
+
+<form th:action="@{/movies/editMovie/{id}(id=${movie.id})}" method="post" class="px-4">
+    <div class="mb-3 row">
+        <label for="name" class="col-sm-2 col-form-label">Movie Name</label>
+        <div class="col-sm-6">
+            <input type="text" id="name" class="form-control" name="name" th:value="${movie.name}" required />
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <label for="genre" class="col-sm-2 col-form-label">Genre</label>
+        <div class="col-sm-6">
+            <select id="genre" class="form-control" name="genre" th:value="${movie.genre}" required>
+                <option th:each="genre : ${genres}" th:value="${genre}" th:text="${genre}"></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <label for="year" class="col-sm-2 col-form-label">Year</label>
+        <div class="col-sm-6">
+            <input type="number" id="year" class="form-control" name="year" th:value="${movie.year}" required />
+        </div>
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-success">Update Movie</button>
+    </div>
+</form>
+
+<div th:replace="~{fragments :: footer}"></div>
+
+</html>

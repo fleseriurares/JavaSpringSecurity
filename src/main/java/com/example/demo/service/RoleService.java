@@ -29,6 +29,10 @@ public class RoleService {
         return roleMapper.roleListEntityToDto(roleRepository.findAll());
     }
 
+    public List<Role> findAll(){
+        return roleRepository.findAll();
+    }
+
     public RoleDto createRole(Role role){
         return roleMapper.roleEntityToDto(roleRepository.save(role));
     }
